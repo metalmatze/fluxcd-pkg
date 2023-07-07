@@ -57,8 +57,7 @@ func (g *Client) cloneBranch(ctx context.Context, url, branch string, opts repos
 			return nil, err
 		}
 		hash := git.ExtractHashFromRevision(head)
-		shortRef := fmt.Sprintf("%s@%s", branch, hash.Digest())
-		if head != "" && shortRef == lastObserved {
+		if head != "" && hash.Digest() == lastObserved {
 			// Construct a non-concrete commit with the existing information.
 			c := &git.Commit{
 				Hash:      hash,
